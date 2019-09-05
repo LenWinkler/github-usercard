@@ -6,7 +6,16 @@
 axios.get('https://api.github.com/users/LenWinkler')
   .then(response => {
     console.log(response);
+    let newCard = CardCreator(response);
+    cards.appendChild(newCard);
+    // response.data.forEach(item => {
+    //   let newCard = CardCreator(item);
+    //   cards.appendChild(newCard);
+    // });
   })
+  .catch(error => {
+    console.log("Something went wrong =>", error);
+  });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -79,11 +88,13 @@ function CardCreator(obj) {
   cardImg.src = obj.data.avatar_url;
   cardName.textContent = obj.data.name;
   cardUserName.textContent = obj.data.login;
-  cardLocation.textContent = obj.data.location;
+  cardLocation.textContent = `Location: ${obj.data.location}`;
+  cardProfile.textContent = `Profile: `;
+  gitAddress.href = obj.data.html_url;
   gitAddress.textContent = obj.data.html_url;
-  cardFollowers.textContent = obj.data.followers;
-  cardFollowing.textContent = obj.data.following;
-  cardBio.textContent = obj.data.bio;
+  cardFollowers.textContent = `Followers: ${obj.data.followers}`;
+  cardFollowing.textContent = `Following: ${obj.data.following}`;
+  cardBio.textContent =  `Bio: ${obj.data.bio}`;
 
   // append
 
@@ -101,6 +112,8 @@ function CardCreator(obj) {
   return card;
 
 }
+
+const cards = document.querySelector('.cards'); 
 
 /* List of LS Instructors Github username's: 
   tetondan
