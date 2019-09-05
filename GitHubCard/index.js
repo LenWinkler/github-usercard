@@ -3,6 +3,11 @@
            https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/LenWinkler')
+  .then(response => {
+    console.log(response);
+  })
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -46,6 +51,57 @@ const followersArray = [];
 
 */
 
+function CardCreator(obj) {
+
+  // create elements
+
+  let card = document.createElement('div');
+  let cardImg = document.createElement('img');
+  let cardInfo = document.createElement('div');
+  let cardName = document.createElement('h3');
+  let cardUserName = document.createElement('p');
+  let cardLocation = document.createElement('p');
+  let cardProfile = document.createElement('p');
+  let gitAddress = document.createElement('a');
+  let cardFollowers = document.createElement('p');
+  let cardFollowing = document.createElement('p');
+  let cardBio = document.createElement('p');
+
+  // assign classes
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  cardName.classList.add('name');
+  cardUserName.classList.add('username');
+
+  // set content
+
+  cardImg.src = obj.data.avatar_url;
+  cardName.textContent = obj.data.name;
+  cardUserName.textContent = obj.data.login;
+  cardLocation.textContent = obj.data.location;
+  gitAddress.textContent = obj.data.html_url;
+  cardFollowers.textContent = obj.data.followers;
+  cardFollowing.textContent = obj.data.following;
+  cardBio.textContent = obj.data.bio;
+
+  // append
+
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(cardName);
+  cardInfo.appendChild(cardUserName);
+  cardInfo.appendChild(cardLocation);
+  cardInfo.appendChild(cardProfile);
+  cardProfile.appendChild(gitAddress);
+  cardInfo.appendChild(cardFollowers);
+  cardInfo.appendChild(cardFollowing);
+  cardInfo.appendChild(cardBio);
+
+  return card;
+
+}
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
@@ -53,3 +109,4 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
